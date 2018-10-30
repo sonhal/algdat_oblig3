@@ -1,1 +1,1 @@
-# algdat_oblig3
+# Algdat Oblig3
