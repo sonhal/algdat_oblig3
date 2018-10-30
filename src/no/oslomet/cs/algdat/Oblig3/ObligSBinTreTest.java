@@ -6,8 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ObligSBinTreTest {
 
+    ObligSBinTre<Integer> testTre;
+
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
+        testTre = new ObligSBinTre<>(Comparator.naturalOrder());
     }
 
     @org.junit.jupiter.api.AfterEach
@@ -29,6 +32,10 @@ class ObligSBinTreTest {
 
     @org.junit.jupiter.api.Test
     void leggInn() {
+        Integer[] a = {4,7,2,9,5,10,8,1,3,6};
+        ObligSBinTre<Integer> tre = new ObligSBinTre<>(Comparator.naturalOrder());
+        for (int verdi : a) tre.leggInn(verdi);
+        System.out.println(tre.antall()); // Utskrift: 10
     }
 
     @org.junit.jupiter.api.Test
@@ -49,6 +56,15 @@ class ObligSBinTreTest {
 
     @org.junit.jupiter.api.Test
     void antall1() {
+        Integer[] a = {4,7,2,9,4,10,8,7,4,6};
+        ObligSBinTre<Integer> tre = new ObligSBinTre<>(Comparator.naturalOrder());
+        for (int verdi : a) tre.leggInn(verdi);
+        System.out.println(tre.antall());
+        System.out.println(tre.antall(5));
+        System.out.println(tre.antall(4));
+        System.out.println(tre.antall(7));
+        System.out.println(tre.antall(10));
+
     }
 
     @org.junit.jupiter.api.Test
@@ -82,6 +98,15 @@ class ObligSBinTreTest {
 
     @org.junit.jupiter.api.Test
     void postString() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void toString2() {
+        int[] a = {4,7,2,9,4,10,8,7,4,6,1};
+        ObligSBinTre<Integer> tre = new ObligSBinTre<>(Comparator.naturalOrder());
+        for (int verdi : a) tre.leggInn(verdi);
+        System.out.println(tre);
+        // [1, 2, 4, 4, 4, 6, 7, 7, 8, 9, 10]
     }
 
     @org.junit.jupiter.api.Test

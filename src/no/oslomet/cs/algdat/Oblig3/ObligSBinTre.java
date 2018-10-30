@@ -54,7 +54,29 @@ public class ObligSBinTre<T> implements Beholder<T>
     @Override
     public boolean leggInn(T verdi)
     {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");
+
+        Node<T> p = rot, q = null;               // p starter i roten
+        int cmp = 0;                             // hjelpevariabel
+
+        while (p != null)       // fortsetter til p er ute av treet
+        {
+            q = p;                                 // q er forelder til p
+            cmp = comp.compare(verdi,p.verdi);     // bruker komparatoren
+            p = cmp < 0 ? p.venstre : p.høyre;     // flytter p
+        }
+
+        // p er nå null, dvs. ute av treet, q er den siste vi passerte
+
+        p = new Node<T>(verdi, p);                   // oppretter en ny node
+
+        TreeSet<Integer> s = new TreeSet<>();
+        if (q == null) rot = p;                  // p blir rotnode
+        else if (cmp < 0) q.venstre = p;         // venstre barn til q
+        else q.høyre = p;                        // høyre barn til q
+
+        antall++;                                // én verdi mer i treet
+        return true;                             // vellykket innlegging
     }
 
     @Override
@@ -91,7 +113,21 @@ public class ObligSBinTre<T> implements Beholder<T>
 
     public int antall(T verdi)
     {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        int count = 0;
+
+        if (verdi == null) return 0;
+        Node<T> p = rot;
+        while (p != null)
+        {
+            int cmp = comp.compare(verdi, p.verdi);
+            if (cmp < 0) p = p.venstre;
+            else if (cmp > 0) p = p.høyre;
+            else{
+                count++ ;
+                p = p.høyre;
+            }
+        }
+        return count;
     }
 
     @Override
@@ -107,13 +143,22 @@ public class ObligSBinTre<T> implements Beholder<T>
 
     private static <T> Node<T> nesteInorden(Node<T> p)
     {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if(p.venstre != null) return p.venstre;
+        else if (p.høyre != null) return p.høyre;
+        else if(p.forelder != null) return p.forelder.høyre;
+        else return null;
     }
 
     @Override
     public String toString()
     {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        StringBuilder builder = new StringBuilder();
+        Node<T> current = rot;
+        while (current != null){
+            builder.append(current.verdi);
+            current = nesteInorden(current);
+        }
+        return builder.toString();
     }
 
     public String omvendtString()
