@@ -84,7 +84,7 @@ public class ObligSBinTre<T> implements Beholder<T>
     @Override
     public boolean inneholder(T verdi)
     {
-        if (verdi == null) return false;
+        if (verdi == null) return false; // hvis verdien er null såp er den ikke i treet
         Node<T> p = rot;
         while (p != null)
         {
