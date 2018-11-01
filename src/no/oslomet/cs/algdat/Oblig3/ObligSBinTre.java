@@ -1,3 +1,4 @@
+// Sondre Halvorsen, s305349
 package no.oslomet.cs.algdat.Oblig3;
 
 ////////////////// ObligSBinTre /////////////////////////////////
